@@ -40,6 +40,9 @@ p {
   margin: 10px 0 0 0;
   display: block;
 }
+.test-input {
+  margin: 0 5px 5px 0;
+}
     </style>
   </head>
   <body>
@@ -76,15 +79,8 @@ const myNews = [
 
 
 class News extends React.Component {
-  state={
-    counter: 0
-  }
-  handleClickCounter = (e)=>{
-    e.preventDefault()
-    this.setState({
-      counter: this.state.counter + 1
-    })
-  }
+
+
   renderNews = () => {
     const { data } = this.props
     let newsTemplate = null
@@ -101,14 +97,14 @@ class News extends React.Component {
   }
   render() {
     const { data } = this.props
-    const { counter } = this.state
+   
     return (
       <div className="news">
         {this.renderNews()}
         {
           data.length ? <strong onClick={this.handleClickCounter} className={'news__count'}>Всего новостей: {data.length}</strong> : null
         }
-        <p>Всего кликов: { counter }</p>
+        
       </div>
     );
   }
@@ -155,16 +151,34 @@ Article.propTypes = {
   })
 }
 
-const Comments = (props) => {
-  return <p>Нет новостей - комментировать нечего!</p>
+class TestInput extends React.Component {
+  state = {
+    myValue: ''
+  }
+  onChangeHandler = (e) => {
+    this.setState({
+      myValue: e.target.value
+    })
+  }
+  onBtnClickHandler = (e) => {
+    alert(this.state.myValue)
+  }
+  render(){
+    return(
+      <React.Fragment>
+        <input className="test-input" onChange={this.onChangeHandler} value={this.state.myValue} placeholder="введите значение" />
+         <button onClick={this.onBtnClickHandler}>Показать alert</button>
+        </React.Fragment>
+      )
+  }
 }
 
 const App=()=>{
   return(
   <React.Fragment>
    <h3>Новости</h3>
+   <TestInput />
    <News data={myNews}/>  {/*---This is comment ----*/}
-   <Comments />
    </React.Fragment>
    )
 }
