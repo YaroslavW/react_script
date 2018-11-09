@@ -56,10 +56,7 @@ class News extends React.Component {
   if (data.length) {
     newsTemplate = data.map(function(item)  {
       return (
-          <div key={item.id}> {/*--use id as a key--*/}
-            <p className="news_author">{item.author}</p>
-            <p className="news_text">{item.text}</p>
-          </div>
+            <Article key={item.id} data={item} />
         )
     })
     } else {
@@ -78,6 +75,17 @@ class News extends React.Component {
   }
 }
 
+class Article extends React.Component {
+  render(){
+  const { author, text } = this.props.data
+    return(
+           <div className="article">
+              <p className="news_author">{ author }</p>
+              <p className="news_text">{ text }</p>
+           </div>
+      )
+  }
+}
 const Comments = (props) => {
   return <p>Нет новостей - комментировать нечего!</p>
 }
