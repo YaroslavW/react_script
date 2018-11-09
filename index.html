@@ -152,21 +152,18 @@ Article.propTypes = {
 }
 
 class TestInput extends React.Component {
-  state = {
-    myValue: ''
+   constructor(props) {
+    super(props)
+    this.input = React.createRef()
   }
-  onChangeHandler = (e) => {
-    this.setState({
-      myValue: e.target.value
-    })
-  }
+
   onBtnClickHandler = (e) => {
-    alert(this.state.myValue)
+    alert(this.input.current.value)
   }
   render(){
     return(
       <React.Fragment>
-        <input className="test-input" onChange={this.onChangeHandler} value={this.state.myValue} placeholder="введите значение" />
+        <input className="test-input"  defaultValue='' placeholder="введите значение"  ref={this.input} />
          <button onClick={this.onBtnClickHandler}>Показать alert</button>
         </React.Fragment>
       )
