@@ -9,13 +9,36 @@
     <!-- Не используйте это в production -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <style>
-      .red {
-        color: red;
-      }
+.none {
+  display: none;
+}
 
-      .none {
-        display : none;
-      }
+body {
+  background: rgba(0, 102, 255, 0.38);
+  font-family: sans-serif;
+}
+
+p {
+  margin: 0 0 5px;
+}
+
+.article {
+  background: #FFF;
+  border: 1px solid rgba(0, 89, 181, 0.82);
+  width: 600px;
+  margin: 0 0 5px;
+  box-shadow: 2px 2px 5px -1px rgb(0, 81, 202);
+  padding: 3px 5px;
+}
+
+.news__author {
+  text-decoration: underline;
+  color: #007DDC;
+}
+.news__count {
+  margin: 10px 0 0 0;
+  display: block;
+}
     </style>
   </head>
   <body>
@@ -48,30 +71,31 @@
 
 
 class News extends React.Component {
-  render(){
-  const { data } = this.props //this is similar as const data = this.props.data
+  renderNews = () => {
+    const { data } = this.props
+    let newsTemplate = null
 
-  let newsTemplate
-
-  if (data.length) {
-    newsTemplate = data.map(function(item)  {
-      return (
-            <Article key={item.id} data={item} />
-        )
-    })
+    if (data.length) {
+      newsTemplate = data.map(function(item) {
+        return <Article key={item.id} data={item}/>
+      })
     } else {
-      newsTemplate = <p>К сожалению новостей нет.</p>
+      newsTemplate = <p>К сожалению новостей нет</p>
     }
 
-    return(
-        <div className="news">
-          {newsTemplate}
-          {
-            data.length ? <strong>Всего новостей: {data.length}</strong> : null
-          }
-        
-        </div>
-      )
+    return newsTemplate
+  }
+  render() {
+    const { data } = this.props
+
+    return (
+      <div className="news">
+        {this.renderNews()}
+        {
+          data.length ? <strong className={'news__count'}>Всего новостей: {data.length}</strong> : null
+        }
+      </div>
+    );
   }
 }
 
@@ -93,7 +117,7 @@ const Comments = (props) => {
 const App=()=>{
   return(
   <React.Fragment>
-   <p>Всем привет. Я компонент App</p>
+   <h3>Новости</h3>
    <News data={myNews}/>  {/*---This is comment ----*/}
    <Comments />
    </React.Fragment>
