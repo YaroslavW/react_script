@@ -195,11 +195,22 @@ handleCheckboxChange = (e) =>{ // обработчик кликов по чек�
     // чтобы установить true/false считываем свойство checked
 	this.setState({ agree: e.currentTarget.checked})
 }
-  onBtnClickHandler = (e) => {
-  	e.preventDefault()
-  	const { name, text } = this.state
-    alert(name + '\n' + text)
-  }
+onBtnClickHandler = (e) => {
+	e.preventDefault()
+	const { name, text } = this.state
+  alert(name + '\n' + text)
+}
+
+validate = () =>{
+	const { name, text, agree } = this.state
+	if(name.trim() && text.trim() && agree) {
+		return true
+	} else {
+		return false
+	}
+}
+
+
   render(){
   	const { name, text, agree } = this.state
     return(
@@ -223,7 +234,7 @@ handleCheckboxChange = (e) =>{ // обработчик кликов по чек�
         <button
           className='add__btn'
           onClick={this.onBtnClickHandler}
-          disabled={!agree}>
+          disabled={!this.validate()}>
           Показать alert
         </button>
       </form>
