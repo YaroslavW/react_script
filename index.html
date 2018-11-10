@@ -185,15 +185,14 @@ class Add extends React.Component {
  	text:'',
  	agree: false
  }
-handleNameChange = (e)=>{
-	this.setState({name: e.currentTarget.value})
-}
-handleTextChange = (e) =>{
-	this.setState({ text: e.currentTarget.value})
-}
+
 handleCheckboxChange = (e) =>{ // обработчик кликов по чекбоксу
     // чтобы установить true/false считываем свойство checked
 	this.setState({ agree: e.currentTarget.checked})
+}
+handleChange = (e) => {
+	const {id, value} = e.currentTarget
+	this.setState({ [id] : e.currentTarget.value })
 }
 onBtnClickHandler = (e) => {
 	e.preventDefault()
@@ -216,15 +215,19 @@ validate = () =>{
     return(
     	<form className='add'>
         <input
+          id='name'
           type='text'
           className='add__author'
           placeholder='Ваше имя'
-          onChange={this.handleNameChange}
+          onChange={this.handleChange}
+          value={name}
         />
         <textarea
+        	id='text'
           className='add__text'
           placeholder='Текст новости'
-          onChange={this.handleTextChange}
+          onChange={this.handleChange}
+          value={text}
         ></textarea>
         <label className='add__checkrule'>
           <input type='checkbox' 
